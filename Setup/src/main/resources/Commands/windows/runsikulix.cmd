@@ -1,5 +1,4 @@
 @echo off
-SETLOCAL ENABLEEXTENSIONS
 set SJAR=sikulix
 
 if not defined SIKULIX_HOME goto NOHOME
@@ -84,9 +83,10 @@ PATH=%SIKULIX_HOME%libs;%PATH%
 echo +++ trying to run SikuliX
 echo +++ using: %PARMS% -jar %SIKULIX_HOME%%SJAR%.jar %SIKULI_COMMAND%
 "%JAVA_HOME%\bin\java.exe" %PARMS% -jar "%SIKULIX_HOME%%SJAR%.jar" %SIKULI_COMMAND%
+set RESULT=%ERRORLEVEL%
 GOTO FINALLY
 
 :STOPIT
 echo.+++ ended with some errors
 :FINALLY
-ENDLOCAL
+exit %RESULT%
